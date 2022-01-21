@@ -1,0 +1,1 @@
+1) resize all photos (300X300) using intervention package
