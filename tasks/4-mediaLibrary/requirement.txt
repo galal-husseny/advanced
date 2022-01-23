@@ -1,0 +1,4 @@
+user can make
+1) create folder
+2) create file
+3) upload files (photos OR videos only)
