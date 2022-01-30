@@ -1,0 +1,24 @@
+{
+    "name": "galal/mvc",
+    "description": "simple mvc project",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "symfony/var-dumper": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/",
+            "App\\": "app/"
+        },
+        "files":[
+            "src/Support/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "galal husseny",
+            "email": "galal.husseny@gmail.com"
+        }
+    ]
+}
