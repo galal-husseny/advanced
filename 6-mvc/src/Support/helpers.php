@@ -1,5 +1,8 @@
 <?php
 
+use Src\Application;
+use Src\View\View;
+
 function ds(){
     return DIRECTORY_SEPARATOR;
 }
@@ -10,6 +13,9 @@ function base_path(){
 
 function view_path(){
     return base_path() . 'views' . ds();
+}
+function error_path(){
+    return view_path() . 'errors' . ds();
 }
 
 function public_path(){
@@ -27,4 +33,20 @@ function env(string $key,$default = null) :?string
    }else{
        return $default;
    }
+}
+
+function view(string $view,array $data = []){
+    View::make($view,$data);
+}
+
+function abort(int $code){
+    View::abort($code);
+}
+
+function app(){
+    static $isntance = null;
+    if(!$isntance){
+        $isntance = new Application;
+    }
+    return $isntance;
 }

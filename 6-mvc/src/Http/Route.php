@@ -76,12 +76,12 @@ class Route {
 
                 if($path == $this->request->path() && $method != $this->request->method()){
                     // 405
-                    throw new Exception("Method Not Allowed",405);
+                   abort(405);
                 }
 
                 if($path != $this->request->path() && $method != $this->request->method()){
                     // 404
-                    throw new Exception("Not Found",404);
+                    abort(404);
                 }
             }
         }

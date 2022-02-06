@@ -1,0 +1,1 @@
+<h1>Hello From <?php echo $page; ?></h1>

@@ -10,7 +10,7 @@ Route::get('/',function(){
 });
 
 Route::get('/home',[HomeController::class,'index']);
-Route::get('user',[HomeController::class,'user']);
+Route::get('profile',[HomeController::class,'profile']);
 Route::post('test',[HomeController::class,'test']);
 
 
