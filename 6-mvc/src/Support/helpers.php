@@ -1,6 +1,7 @@
 <?php
 
 use Src\Application;
+use Src\Support\Hash;
 use Src\View\View;
 
 function ds(){
@@ -49,4 +50,9 @@ function app(){
         $isntance = new Application;
     }
     return $isntance;
+}
+
+function bcrypt(string $value) :string
+{
+    return Hash::make($value);
 }
