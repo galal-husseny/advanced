@@ -48,19 +48,13 @@ class Route {
         $this->rotueValidation();
 
         if(is_callable($action)){
-            /// invoke
-            call_user_func_array($action,$requestData);
-            // $action($requestData);
+            call_user_func($action,$requestData);
         }
 
         if(is_array($action)){
-            // [
-            //     'class',
-            //     'method'
-            // ]
             $controller = new $action[0];
             $method = $action[1];
-            call_user_func_array([$controller,$method],$requestData);
+            call_user_func([$controller,$method],$requestData);
         }
 
         
@@ -68,22 +62,29 @@ class Route {
     }
 
     private function rotueValidation(){
-        foreach (self::$routes as $method => $methodRoutes) {
-            foreach ($methodRoutes as $path => $action) {  
-                if($path ==  $this->request->path() && $method ==  $this->request->method()){
-                    return;
-                }
-
-                if($path == $this->request->path() && $method != $this->request->method()){
-                    // 405
-                   abort(405);
-                }
-
-                if($path != $this->request->path() && $method != $this->request->method()){
-                    // 404
-                    abort(404);
+        $pathValidation = false;
+        $methodValidation = false;
+        foreach (Self::$routes as $method => $methodRoutes) {
+            foreach ($methodRoutes as $path => $action) {
+                if($path == $this->request->path()){
+                    $pathValidation = true;
                 }
             }
+        }
+
+
+        foreach (Self::$routes[$this->request->method()] as $path => $action) {
+            if($path == $this->request->path()){
+                $methodValidation = true;
+            }
+        }
+
+        if(!$pathValidation){
+            abort(404);
+        }
+
+        if($pathValidation && !$methodValidation){
+            abort(405);
         }
     }
 

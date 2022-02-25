@@ -1,22 +1,26 @@
 <?php 
 namespace Src\Database\Mangers;
-use PDO;
 use Src\Database\Grammers\MYSQLGrammer;
 use Src\Database\Mangers\Contracts\DatabaseManger;
 use Src\Database\Model;
 
 class MYSQLManger implements DatabaseManger {
     protected static $instance;
-    public function connect() : PDO
+    public function connect() : \PDO
     {
         if(!self::$instance){
-            self::$instance = new PDO(env('DB_CONNECTION').":host=".env('DB_HOST').";dbname=".env('DB_DATABASE'),env('DB_USERNAME'),env('DB_PASSWORD'));
+            self::$instance = new \PDO(env('DB_CONNECTION').":host=".env('DB_HOST').";dbname=".env('DB_DATABASE'),env('DB_USERNAME'),env('DB_PASSWORD'));
         }
         return self::$instance;  
     }
 
     public function query(string $query,array $values = []){
-        //
+        $stmt = self::$instance->prepare($query);
+        for ($i=1; $i <= count($values); $i++) { 
+            $stmt->bindValue($i , $values[$i-1]);
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function create(array $data){
@@ -54,7 +58,7 @@ class MYSQLManger implements DatabaseManger {
             
         }
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS,Model::getModel());
+        return $stmt->fetchAll(\PDO::FETCH_CLASS,Model::getModel());
     }
    
     public function delete(?array $filter=null){

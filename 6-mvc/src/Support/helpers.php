@@ -1,8 +1,9 @@
 <?php
 
+use Src\View\View;
 use Src\Application;
 use Src\Support\Hash;
-use Src\View\View;
+use Src\Http\Response;
 
 function ds(){
     return DIRECTORY_SEPARATOR;
@@ -41,7 +42,7 @@ function view(string $view,array $data = []){
 }
 
 function abort(int $code){
-    View::abort($code);
+    View::abort($code);die;
 }
 
 function app(){
@@ -55,4 +56,32 @@ function app(){
 function bcrypt(string $value) :string
 {
     return Hash::make($value);
+}
+
+function serverProtocol () :string{
+    return strtolower(explode('/',$_SERVER['SERVER_PROTOCOL'])[0]);
+}
+
+function url(string $url = '') 
+{
+    // http://127.0.0.1:8000/
+    if(!str_starts_with($url,'/')){
+        $url = "/$url";
+    }
+    return (serverProtocol()."://".$_SERVER['HTTP_HOST'] . $url);
+}
+
+function redirect(string $url){
+    return header("location:{$url}");
+}
+
+function back(){
+    (new Response)->back();
+}
+
+function old(string $key) 
+{
+    if(app()->session->hasFlash('old')){
+        return app()->session->getFlash('old')[$key] ?? '';
+    }
 }

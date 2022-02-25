@@ -18,7 +18,7 @@ class DB {
 
     public function query(string $query , array $values = [])
     {
-        $this->manger->query($query,$values);
+        return $this->manger->query($query,$values);
     }
 
     public function create(array $data){

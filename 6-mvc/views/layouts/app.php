@@ -12,7 +12,7 @@
   <body>
       <?php include view_path() . 'components' . ds() . 'navbar.php'; ?>
 
-      <div class="contianer">
+      <div class="container">
         {{content}}
       </div>
     <!-- Optional JavaScript -->
