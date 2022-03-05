@@ -5,6 +5,7 @@ use Src\Support\Str;
 
 abstract class Model {
     private static $inovker;
+    public static $result;
     public static function create(array $data)
     {
         self::$inovker = static::class;
@@ -29,12 +30,16 @@ abstract class Model {
     }
     public static function select(array|string $columns="*",?array $filter=null){
         self::$inovker = static::class;
-        return app()->db->read($columns,$filter);
+        self::$result =  app()->db->read($columns,$filter);
+        return new self::$inovker;
     }
+    // 
+    
 
     public static function where(array $filter){
         self::$inovker = static::class;
-        return app()->db->read(filter: $filter);
+        self::$result =  app()->db->read(filter: $filter);
+        return new self::$inovker;
     }
 
     public static function getModel (){
@@ -44,6 +49,16 @@ abstract class Model {
     public static function tableName() :string
     {
         return Str::lower(Str::pluralize(Str::get_class_name(self::$inovker)));
+    }
+
+    public function first()
+    {
+        return self::$result[0] ?? null;
+    }
+
+     public function get()
+    {
+        return self::$result ?? [];
     }
 }
 

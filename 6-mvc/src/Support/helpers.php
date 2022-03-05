@@ -4,6 +4,7 @@ use Src\View\View;
 use Src\Application;
 use Src\Support\Hash;
 use Src\Http\Response;
+use Src\Support\Crypt;
 
 function ds(){
     return DIRECTORY_SEPARATOR;
@@ -15,6 +16,10 @@ function base_path(){
 
 function view_path(){
     return base_path() . 'views' . ds();
+}
+
+function component_path(string $component){
+    return view_path() . 'components' . ds() . $component . '.php';
 }
 function error_path(){
     return view_path() . 'errors' . ds();
@@ -81,7 +86,19 @@ function back(){
 
 function old(string $key) 
 {
-    if(app()->session->hasFlash('old')){
-        return app()->session->getFlash('old')[$key] ?? '';
+    if(session()->hasFlash('old')){
+        return session()->getFlash('old')[$key] ?? '';
     }
+}
+
+function session(){
+    return app()->session;
+}
+
+function encrypt(string $string){
+    return Crypt::encryptString($string);
+}
+
+function decrypt(string $encryptedString){
+    return Crypt::decryptString($encryptedString);
 }

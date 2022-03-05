@@ -23,8 +23,8 @@ class Validator {
        $this->validate();
        if($redirect){
             if(!$this->passed() ){
-                app()->session->setFlash('errors',$this->errors());
-                app()->session->setFlash('old',$data);
+                session()->setFlash('errors',$this->errors());
+                session()->setFlash('old',$data);
                 return back();
             }
        }

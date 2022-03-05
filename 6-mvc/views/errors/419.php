@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>403 Page Expired</title>
+    <title>419 Page Expired</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
@@ -420,7 +420,7 @@
         "use strict";
         if (i > 80) {
             clearInterval(loop2);
-            selector2.textContent = 0;
+            selector2.textContent = 1;
         } else {
             selector2.textContent = randomNum();
             i++;
@@ -430,7 +430,7 @@
         "use strict";
         if (i > 100) {
             clearInterval(loop1);
-            selector1.textContent = 3; // error code
+            selector1.textContent = 9; // error code
         } else {
             selector1.textContent = randomNum();
             i++;

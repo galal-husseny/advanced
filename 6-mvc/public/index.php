@@ -2,6 +2,7 @@
 
 use Dotenv\Dotenv;
 use App\Models\User;
+use Src\Auth\Auth;
 use Src\Http\Response;
 use Src\Support\Session;
 
@@ -14,6 +15,4 @@ $env = Dotenv::createImmutable(base_path());
 $env->safeLoad();
 
 app()->run(); 
-
-
 

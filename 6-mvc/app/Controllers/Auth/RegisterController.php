@@ -29,18 +29,20 @@ class RegisterController {
             'name'=>$data['name'],
             'email'=>$data['email'],
             'gender'=>$data['gender'],
-            'password'=>bcrypt($data['password'])
+            'password'=>bcrypt($data['password']),
+            'email_expired_at'=>date("Y-m-d H:i:s",strtotime('+'.env('VERIFICATION_EXPIRATION').' seconds'))
         ]);
         // send mail
         $subject = "Verification Mail";
-        $params = ['name'=>$data['name'],'email'=>$data['email']];
+        $signture = rawurlencode(encrypt($data['email']));
+        $params = ['name'=>$data['name'],'signture'=>$signture];
         $body = View::getViewContent('Mails.VerificationMail',params:$params);
         $verificationMailResult = (New VerificationMail($data['email'],$subject,$body))->send();
         if($verificationMailResult){
             // redirect
-            app()->session->setFlash('success','Regsiterd Successfully ! Please Check Your Mailbox For Verificaiton Link');
+            session()->setFlash('success','Regsiterd Successfully ! Please Check Your Mailbox For Verificaiton Link');
         }else{
-            app()->session->setFlash('error','Please Try Again Later');
+            session()->setFlash('error','Please Try Again Later');
         }
         return back();
 

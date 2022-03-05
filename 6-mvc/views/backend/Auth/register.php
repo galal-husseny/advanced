@@ -1,19 +1,14 @@
+{{title=Signup}}
 <div class="row mt-5">
     <div class="col-12 text-center">
         <h1 class=" text-info"> Signup Now </h1>
     </div>
     <div class="offset-3 col-6">
-        <!-- #success or error messsages  -->
-        <?php if (app()->session->hasFlash('success')) : ?>
-            <div class="alert alert-success"> <?= app()->session->getFlash('success') ?> </div>
-        <?php endif; ?>
-        <?php if (app()->session->hasFlash('error')) : ?>
-            <div class="alert alert-danger"> <?= app()->session->getFlash('error') ?> </div>
-        <?php endif; ?>
+        <?php include_once component_path('response-message'); ?>
         <!-- validation errors  -->
-        <?php if (app()->session->hasFlash('errors')) :  ?>
+        <?php if (session()->hasFlash('errors')) :  ?>
             <ul class="alert alert-danger">
-                <?php foreach (app()->session->getFlash('errors') as  $error) : ?>
+                <?php foreach (session()->getFlash('errors') as  $error) : ?>
                     <li> <?= $error[0] ?> </li>
                 <?php endforeach; ?>
             </ul>
@@ -23,9 +18,9 @@
                 <label for="Name">Name</label>
                 <input type="text" name="name" id="Name" class="form-control" placeholder="" aria-describedby="helpId" value="<?= old('name') ?>">
                 <?php
-                // if(app()->session->hasFlash('errors')){
-                //     if(isset(app()->session->getFlash('errors')['name'])){
-                //         echo "<p class='text-danger'> ".app()->session->getFlash('errors')['name'][0]." </p>";
+                // if(session()->hasFlash('errors')){
+                //     if(isset(session()->getFlash('errors')['name'])){
+                //         echo "<p class='text-danger'> ".session()->getFlash('errors')['name'][0]." </p>";
                 //     }
                 // }
                 ?>
